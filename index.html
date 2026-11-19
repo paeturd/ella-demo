@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="fo">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Finn og met um støð, mat og upplivingar í Føroyum.">
+<title>Ella — Met um Føroyar</title>
+<style>
+:root{color-scheme:light;--ink:#172e28;--muted:#54675e;--paper:#f8f7ef;--white:#fffef9;--line:#d9ded3;--green:#214c3c;--lime:#d8eea5;font:16px/1.5 system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button,select{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #718a38;outline-offset:3px}
+.wrap{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:77px}
+.brand{font:700 38px/1 Georgia,serif;letter-spacing:-.08em;text-decoration:none}
+.brand span{color:#718a38}
+nav{display:flex;align-items:center;gap:24px;font-weight:650;font-size:.9rem}
+nav a{text-decoration:none}
+nav a:hover{text-decoration:underline}
+.pill{border:1px solid var(--line);border-radius:100px;background:var(--white);padding:.58rem .95rem;white-space:nowrap}
+.pill:hover{border-color:var(--green)}
+.hero{color:#fff;background:#244d40;position:relative;isolation:isolate;overflow:hidden;border-radius:24px;min-height:445px;display:grid;align-items:center}
+.hero img,.hero::after{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 57%;z-index:-2}
+.hero::after{content:"";z-index:-1;background:linear-gradient(90deg,#102c22f5 0%,#102c22da 34%,#102c2260 68%,#102c2230 100%)}
+.intro{padding:52px clamp(24px,6vw,76px);max-width:720px}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:Georgia,serif}
+h1{font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-.065em}
+h1 em{color:var(--lime);font-weight:inherit}
+.intro p{font-size:1.1rem;max-width:365px;margin:24px 0}
+.cta{display:inline-block;border:0;background:var(--lime);color:var(--ink);border-radius:100px;padding:.8rem 1.2rem;font-weight:750;text-decoration:none}
+.cta:hover{background:#e5f5be}
+.credit{font-size:.74rem;color:var(--muted);text-align:right;margin:8px 0 0}
+#kanna{padding:49px 0 68px;scroll-margin-top:10px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap}
+h2{font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.05em}
+.section-head p{color:var(--muted);margin-top:9px}
+.search{display:grid;gap:4px;font-size:.82rem;font-weight:700;width:min(100%,320px)}
+input[type=search],select,textarea{border:1px solid var(--line);border-radius:10px;padding:.68rem .78rem;background:var(--white)}
+.filters{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin:23px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button[aria-pressed=true],#mine[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)}
+.sort,.count{color:var(--muted);font-size:.86rem}
+.count{margin-bottom:12px;min-height:1.5em}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{overflow:hidden;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);border-radius:16px}
+.cover{min-height:110px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;background:#dfe9da;color:#224635}
+.cover[data-cat=food]{background:#f1e2cb;color:#684021}
+.cover[data-cat=culture]{background:#e7e4f3;color:#44385d}
+.cover[data-cat=activity]{background:#d9e8ed;color:#244552}
+.cover span:first-child{font-size:.9rem;font-weight:750}
+.cover span:last-child{font:4rem/1 Georgia,serif;opacity:.72}
+.details{padding:19px;display:flex;flex-direction:column;align-items:start;gap:8px;flex:1}
+.details h3{font-size:1.6rem;line-height:1.1;letter-spacing:-.03em}
+.place,.description{color:var(--muted);font-size:.9rem}
+.score{margin-top:auto;padding-top:7px;font-size:.87rem;font-weight:700}
+footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:.9rem}
+dialog{border:1px solid var(--line);border-radius:20px;padding:24px;width:min(440px,calc(100% - 32px));background:var(--white);color:var(--ink)}
+dialog::backdrop{background:#122b26a8}
+dialog form{display:grid;gap:14px}
+.dialog-head{display:flex;align-items:start;justify-content:space-between;gap:10px}
+dialog h2{font-size:2rem}
+fieldset{border:0;padding:0;margin:0}
+.stars{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.stars label{position:relative;cursor:pointer}
+.stars input{position:absolute;opacity:0;inset:0}
+.stars span{display:block;padding:4px 8px;border:1px solid var(--line);border-radius:8px;font-size:1.4rem;color:#72501f}
+.stars input:checked + span{background:var(--lime);border-color:var(--green)}
+.stars input:focus-visible + span{outline:3px solid #718a38}
+.note{display:grid;gap:5px}
+textarea{resize:vertical}
+#feedback,#save-error{color:var(--muted);font-size:.87rem}
+#feedback:empty,#save-error:empty{display:none}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.wrap{width:calc(100% - 30px)}nav{gap:10px}.hero{min-height:360px}.hero::after{background:linear-gradient(90deg,#102c22ed,#102c2275)}.grid{grid-template-columns:1fr}#kanna{padding-top:34px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="#" aria-label="Ella, forsíða">ella<span>.</span></a><nav aria-label="Høvuðsvalmynd"><a href="#kanna" id="explore">Kanna</a><button class="pill" id="mine" type="button" aria-pressed="false">Míni ummæli</button></nav></div></header>
+<main class="wrap">
+  <section class="hero" aria-labelledby="headline">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Waterfall_at_G%C3%A1sadalur.jpg" alt="" width="1400" height="932" fetchpriority="high">
+    <div class="intro"><h1 id="headline">Met um <em>Føroyar.</em></h1><p>Finn okkurt nýtt at royna, ella gev tí, tú longu kennir, eina stjørnu ella fimm.</p><a class="cta" href="#kanna" id="discover">Kanna úrvalið ↓</a></div>
+  </section>
+  <p class="credit">Mynd úr Gásadali eftir <a href="https://commons.wikimedia.org/wiki/File:Waterfall_at_G%C3%A1sadalur.jpg">Ævar Guðmundsson</a> · <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a> · Skorin til</p>
+  <section id="kanna" aria-labelledby="section-title">
+    <div class="section-head"><div><h2 id="section-title">Kanna Føroyar</h2><p id="section-description">Støð, matur, mentan og upplivingar.</p></div>
+    <label class="search">Leita<input type="search" id="query" placeholder="T.d. Gásadalur ella skerpikjøt"></label></div>
+    <div class="filters"><div class="chips" id="categories" aria-label="Bólkar"></div><label class="sort">Raða eftir <select id="sort"><option value="default">Úrvali</option><option value="name">Navni</option><option value="rating">Mínum stjørnum</option></select></label></div>
+    <p class="count" id="count" aria-live="polite"></p><p id="feedback" role="status"></p>
+    <div class="grid" id="catalogue"></div>
+  </section>
+</main>
+<footer><div class="wrap"><strong>Ella</strong> · Royndarútgáva. Ummæli verða goymd í hesum kaganum.</div></footer>
+<dialog aria-labelledby="rate-title" id="rating-dialog">
+  <form id="rating-form">
+    <div class="dialog-head"><h2 id="rate-title"></h2><button class="pill" id="close-dialog" type="button">Lat aftur</button></div>
+    <fieldset><legend>Gev 1–5 stjørnur</legend><div class="stars" id="stars"></div></fieldset>
+    <label class="note">Viðmerking (valfrí)<textarea name="note" rows="3" maxlength="400"></textarea></label>
+    <p id="save-error" role="alert"></p>
+    <button class="cta" type="submit">Goym mítt ummæli</button>
+    <button class="pill" type="button" id="remove-rating">Strika mítt ummæli</button>
+  </form>
+</dialog>
+<template id="card">
+  <article class="card">
+    <div class="cover"><span class="category"></span><span class="symbol" aria-hidden="true"></span></div>
+    <div class="details"><h3></h3><p class="place"></p><p class="description"></p><p class="score"></p><p class="description review" hidden></p><button type="button" class="pill rate"></button></div>
+  </article>
+</template>
+<script>
+const categories = {
+  all: ['Alt', ''],
+  places: ['Støð', '⌂'],
+  food: ['Matur', '✦'],
+  culture: ['Mentan', '♫'],
+  activity: ['Upplivingar', '↗'],
+};
+const items = [
+  {id:'gasadalur', name:'Gásadalur', category:'places', location:'Vágar', description:'Bygdin við Múlafossi og útsýni yvir havið.'},
+  {id:'skerpikjot', name:'Skerpikjøt', category:'food', location:'Føroyskur matur', description:'Turt seyðakjøt úr hjalli, ofta etið á breyði.'},
+  {id:'dansur', name:'Føroyskur dansur', category:'culture', location:'Føroysk siðvenja', description:'Kvæði, niðurløg og fet í ringi.'},
+  {id:'tinganes', name:'Tinganes', category:'places', location:'Tórshavn', description:'Reyð hús og trongar gøtur millum vágirnar í Havn.'},
+  {id:'kallur', name:'Gongutúrur til Kallin', category:'activity', location:'Kalsoy', description:'Gongutúrur úr Trøllanesi til vitan á Kallinum.'},
+  {id:'raest-fiskur', name:'Ræstur fiskur', category:'food', location:'Føroyskur matur', description:'Ræstur fiskur við eplum og garnatálg.'},
+  {id:'nordurlandahusid', name:'Norðurlandahúsið', category:'culture', location:'Tórshavn', description:'Konsertir, framsýningar og onnur mentanartiltøk.'},
+  {id:'vestmanna', name:'Vestmannabjørgini', category:'activity', location:'Streymoy', description:'Bátatúrur undir bjørgunum við Vestmanna.'},
+  {id:'gjogv', name:'Gjógv', category:'places', location:'Eysturoy', description:'Bygdin við náttúruhavningini í gjónni.'},
+];
+const byId = id => document.getElementById(id);
+const storageKey = 'ella.reviews.v1';
+function loadReviews() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    return Object.fromEntries(items.flatMap(({id}) => {
+      const review = stored?.[id];
+      return Number.isInteger(review?.rating) && review.rating >= 1 && review.rating <= 5
+        ? [[id, {rating: review.rating, note: typeof review.note === 'string' ? review.note : ''}]]
+        : [];
+    }));
+  } catch {
+    return {};
+  }
+}
+let reviews = loadReviews();
+let category = 'all';
+let mine = false;
+let activeItem = null;
+const dialogue = byId('rating-dialog');
+const form = byId('rating-form');
+const catalogue = byId('catalogue');
+const query = byId('query');
+const chips = byId('categories');
+
+function searchKey(value) {
+  return value.toLocaleLowerCase().normalize('NFD').replace(/\p{M}/gu, '')
+    .replaceAll('ð', 'd').replaceAll('ø', 'o').replaceAll('æ', 'ae');
+}
+
+for (const [key, [name]] of Object.entries(categories)) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'pill';
+  button.dataset.category = key;
+  button.textContent = name;
+  button.addEventListener('click', () => {
+    category = key;
+    render();
+  });
+  chips.append(button);
+}
+for (let score = 1; score <= 5; score++) {
+  const label = document.createElement('label');
+  const input = document.createElement('input');
+  input.type = 'radio';
+  input.name = 'rating';
+  input.value = String(score);
+  input.required = true;
+  input.setAttribute('aria-label', score === 1 ? '1 stjørna' : score + ' stjørnur');
+  const mark = document.createElement('span');
+  mark.textContent = score + '★';
+  mark.setAttribute('aria-hidden', 'true');
+  label.append(input, mark);
+  byId('stars').append(label);
+}
+
+function render() {
+  const term = searchKey(query.value.trim());
+  const matches = items.filter(item =>
+    (!mine || reviews[item.id]) &&
+    (category === 'all' || item.category === category) &&
+    searchKey([item.name, item.location, item.description, categories[item.category][0]].join(' ')).includes(term)
+  );
+  const sort = byId('sort').value;
+  if (sort === 'name') matches.sort((a, b) => a.name.localeCompare(b.name, 'fo'));
+  if (sort === 'rating') matches.sort((a, b) => (reviews[b.id]?.rating ?? 0) - (reviews[a.id]?.rating ?? 0));
+
+  for (const chip of chips.children) chip.setAttribute('aria-pressed', String(chip.dataset.category === category));
+  byId('mine').setAttribute('aria-pressed', String(mine));
+  byId('section-title').textContent = mine ? 'Míni ummæli' : 'Kanna Føroyar';
+  byId('section-description').textContent = mine ? 'Tíni ummæli í hesum kaganum.' : 'Støð, matur, mentan og upplivingar.';
+  byId('count').textContent = matches.length ? matches.length + ' úrslit'
+    : mine && !Object.keys(reviews).length ? 'Tú hevur ikki skrivað nakað ummæli enn.' : 'Einki úrslit.';
+  const cards = matches.map(item => {
+    const card = byId('card').content.cloneNode(true);
+    const review = reviews[item.id];
+    const [name, symbol] = categories[item.category];
+    card.querySelector('.cover').dataset.cat = item.category;
+    card.querySelector('.category').textContent = name;
+    card.querySelector('.symbol').textContent = symbol;
+    card.querySelector('h3').textContent = item.name;
+    card.querySelector('.place').textContent = item.location;
+    card.querySelector('.description').textContent = item.description;
+    card.querySelector('.score').textContent = review ? 'Tín meting · ' + review.rating + '/5 ★' : 'Ongin meting frá tær';
+    const note = card.querySelector('.review');
+    note.hidden = !review?.note;
+    note.textContent = review?.note ?? '';
+    const button = card.querySelector('.rate');
+    button.dataset.item = item.id;
+    button.textContent = review ? 'Broyt ummæli' : 'Gev stjørnur';
+    button.setAttribute('aria-label', button.textContent + ' · ' + item.name);
+    button.addEventListener('click', () => openRating(item));
+    return card;
+  });
+  catalogue.replaceChildren(...cards);
+}
+
+function switchView(showMine) {
+  if (mine !== showMine) {
+    mine = showMine;
+    category = 'all';
+    query.value = '';
+  }
+  byId('feedback').textContent = '';
+  render();
+}
+byId('mine').addEventListener('click', () => {
+  switchView(!mine);
+  byId('kanna').scrollIntoView();
+});
+for (const id of ['explore', 'discover']) byId(id).addEventListener('click', () => switchView(false));
+query.addEventListener('input', render);
+byId('sort').addEventListener('change', render);
+
+function openRating(item) {
+  activeItem = item;
+  form.reset();
+  const review = reviews[item.id];
+  byId('rate-title').textContent = item.name;
+  byId('save-error').textContent = '';
+  byId('remove-rating').hidden = !review;
+  if (review) {
+    form.elements.rating.value = String(review.rating);
+    form.elements.note.value = review.note;
+  }
+  dialogue.showModal();
+}
+function updateReview(review) {
+  const nextReviews = loadReviews();
+  if (review) nextReviews[activeItem.id] = review;
+  else delete nextReviews[activeItem.id];
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(nextReviews));
+  } catch {
+    byId('save-error').textContent = 'Ummælið kundi ikki goymast. Kanna, um kagin loyvir goymslu.';
+    return;
+  }
+  const itemId = activeItem.id;
+  reviews = nextReviews;
+  dialogue.close();
+  render();
+  byId('feedback').textContent = review ? 'Ummælið er goymt.' : 'Ummælið er strikað.';
+  (catalogue.querySelector('[data-item="' + itemId + '"]') || byId('mine')).focus();
+}
+byId('close-dialog').addEventListener('click', () => dialogue.close());
+byId('remove-rating').addEventListener('click', () => updateReview(null));
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  updateReview({rating: Number(form.elements.rating.value), note: form.elements.note.value.trim()});
+});
+window.addEventListener('storage', event => {
+  if (event.key === storageKey || event.key === null) {
+    reviews = loadReviews();
+    render();
+  }
+});
+render();
+</script>
+</body>
+</html>
